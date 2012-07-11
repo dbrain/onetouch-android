@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="app_name">OneTouch Commander</string>
+    <string name="add_server">Add Server</string>
+    <string name="server_name_label">Name</string>
+    <string name="server_address_label">Address</string>
+    <string name="server_password_label">Password</string>
+    <string name="server_description_label">Description</string>
+    <string name="add_server_title">Add Server &#8230;</string>
+    <string name="server_added">Server added.</string>
+    <string name="servers_deleted">%d servers deleted.</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="delete_icon_title">Delete servers.</string>
+    <string-array name="server_types">
+        <item>http://</item>
+        <item>https://</item>
+    </string-array>
+
+</resources>

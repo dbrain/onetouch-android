@@ -1,0 +1,5 @@
+# cache for current jar dependecy. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1341872651000 337562 27c24d26e4c5d57976e6926367985548678e913c /Users/dannyb/Development/workspace/onetouch-android/app/libs/android-support-v4.jar
+1341872789000 337562 27c24d26e4c5d57976e6926367985548678e913c /Users/dannyb/Development/workspace/onetouch-android/libs/ActionBarSherlock-4.1.0/libs/android-support-v4.jar
