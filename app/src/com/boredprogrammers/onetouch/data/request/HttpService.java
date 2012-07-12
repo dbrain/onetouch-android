@@ -45,8 +45,8 @@ public final class HttpService<T extends BaseResponse> {
         AndroidHttpClient httpClient = null;
         try {
             httpClient = AndroidHttpClient.newInstance(USER_AGENT);
-            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 1000);
-            HttpConnectionParams.setSoTimeout(httpClient.getParams(), 3000);
+            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 3000);
+            HttpConnectionParams.setSoTimeout(httpClient.getParams(), 5000);
             HttpUriRequest request;
             if (serviceRequest != null) {
                 // We have request parameters, POST

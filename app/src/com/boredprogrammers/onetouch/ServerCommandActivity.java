@@ -7,7 +7,10 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.boredprogrammers.onetouch.data.model.Server;
 import com.boredprogrammers.onetouch.data.table.ServerTable;
@@ -23,6 +26,24 @@ public final class ServerCommandActivity extends SherlockFragmentActivity implem
         setContentView(R.layout.server);
         commandList = (CommandListFragment) getSupportFragmentManager().findFragmentById(R.id.command_list);
         getSupportLoaderManager().initLoader(SERVER_LOADER, null, this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
