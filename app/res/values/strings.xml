@@ -24,5 +24,6 @@
     <string name="command_exec_label">Commands:</string>
     <string name="command_output_label">Output:</string>
     <string name="example_field">Example text.</string>
+    <string name="command_fail_label">Fail On Error:</string>
 
 </resources>

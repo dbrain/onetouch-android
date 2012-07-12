@@ -68,9 +68,11 @@ public final class RunCommandDialog extends SherlockDialogFragment {
         commandName.setText(command.title);
         final TextView commandDescription = (TextView) view.findViewById(R.id.command_description);
         commandDescription.setText(command.description);
+        final TextView commandFailOnError = (TextView) view.findViewById(R.id.command_fail);
+        commandFailOnError.setText(String.valueOf(command.failOnError));
         final TextView commandExec = (TextView) view.findViewById(R.id.command_exec);
         for (final CommandLine commandLine : command.exec) {
-            commandExec.append(commandLine.cmd + " " + TextUtils.join("", commandLine.args) + "\n");
+            commandExec.append(commandLine.cmd + " " + TextUtils.join(" ", commandLine.args) + "\n");
         }
         final OnClickListener dismisser = new OnClickListener() {
             @Override
@@ -131,21 +133,28 @@ public final class RunCommandDialog extends SherlockDialogFragment {
                                     for (int numBytesRead; (numBytesRead = content.read(readBytes)) != -1;) {
                                         final Message msg = new Message();
                                         msg.obj = new String(readBytes, 0, numBytesRead);
-                                        Log.d("RunCommand", "Dispatching msg " + msg.obj);
                                         handler.sendMessage(msg);
                                     }
                                 } finally {
                                     if (content != null) {
-                                        content.close();
+                                        try {
+                                            content.close();
+                                        } catch (final Exception e) {
+                                            Log.w(TAG, "An error occurred closing connections", e);
+                                        }
                                     }
-                                    entity.consumeContent();
+                                    try {
+                                        entity.consumeContent();
+                                    } catch (final Exception e) {
+                                        Log.w(TAG, "An error occurred closing connections", e);
+                                    }
                                 }
                             }
                         } else {
                             return "Command " + command.shortName + " failed with status: " + statusCode;
                         }
                     } catch (final Exception e) {
-                        return "Command " + command.shortName + " failed with error: " + e.getMessage();
+                        return "Command " + command.shortName + " failed with error: " + e;
                     } finally {
                         if (httpClient != null) {
                             httpClient.close();
@@ -157,7 +166,7 @@ public final class RunCommandDialog extends SherlockDialogFragment {
                 @Override
                 protected void onPostExecute(final String result) {
                     final Message resultMsg = new Message();
-                    resultMsg.obj = result;
+                    resultMsg.obj = "\n" + result;
                     Log.d("RunCommand", "Dispatching msg " + resultMsg.obj);
                     handler.sendMessage(resultMsg);
                     running = false;

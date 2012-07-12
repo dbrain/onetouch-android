@@ -7,10 +7,5 @@ public final class Command {
     public String title;
     public String description;
     public List<CommandLine> exec;
-
-    @Override
-    public String toString() {
-        return "Command [shortName=" + shortName + ", title=" + title + ", description=" + description + ", exec=" + exec + "]";
-    }
-
+    public boolean failOnError;
 }
