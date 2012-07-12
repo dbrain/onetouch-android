@@ -68,9 +68,9 @@ public final class RunCommandDialog extends SherlockDialogFragment {
         commandName.setText(command.title);
         final TextView commandDescription = (TextView) view.findViewById(R.id.command_description);
         commandDescription.setText(command.description);
-        final TextView commandExec = (TextView) view.findViewById(R.id.command_description);
+        final TextView commandExec = (TextView) view.findViewById(R.id.command_exec);
         for (final CommandLine commandLine : command.exec) {
-            commandExec.append("\n" + commandLine.cmd + " " + TextUtils.join("", commandLine.args));
+            commandExec.append(commandLine.cmd + " " + TextUtils.join("", commandLine.args) + "\n");
         }
         final OnClickListener dismisser = new OnClickListener() {
             @Override

@@ -15,8 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/command_name_field"
-        android:text="@string/example_field" />
+        android:layout_toRightOf="@+id/command_name_field" />
 
     <TextView
         android:id="@+id/command_description_field"
@@ -30,14 +29,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/command_description_field"
-        android:text="@string/example_field"  />
+        android:layout_alignBottom="@id/command_description_field"
+        android:layout_toRightOf="@id/command_description_field" />
 
     <TextView
         android:id="@+id/command_exec_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/command_description"
+        android:layout_below="@id/command_description_field"
         android:text="@string/command_exec_label" />
 
     <TextView
@@ -45,8 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/command_exec_field"
-        android:paddingLeft="5dp"
-        android:text="@string/example_field"  />
+        android:paddingLeft="5dp" />
 
     <TextView
         android:id="@+id/command_output_field"
@@ -64,8 +62,7 @@
         <TextView
             android:id="@+id/command_output"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/example_field"  />
+            android:layout_height="wrap_content" />
     </ScrollView>
 
     <LinearLayout
