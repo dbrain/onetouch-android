@@ -19,6 +19,7 @@ public class MainActivity extends SherlockFragmentActivity implements AddServerD
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.main);
+        setSupportProgressBarIndeterminateVisibility(false);
     }
 
     @Override
