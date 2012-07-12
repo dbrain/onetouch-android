@@ -12,8 +12,6 @@ import static com.boredprogrammers.onetouch.data.table.ServerTable._ID_INDEX;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -44,7 +42,8 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.boredprogrammers.onetouch.data.request.HttpService;
-import com.boredprogrammers.onetouch.data.response.BaseResponse;
+import com.boredprogrammers.onetouch.data.response.InfoResponse;
+import com.boredprogrammers.onetouch.data.response.ServiceResponse;
 
 public class ServerListFragment extends SherlockListFragment implements LoaderCallbacks<Cursor>, OnItemLongClickListener {
     private static final String TAG = "ServerList";
@@ -52,6 +51,7 @@ public class ServerListFragment extends SherlockListFragment implements LoaderCa
     private ServerCursorAdapter adapter;
     protected ActionMode actionMode;
     private final SparseBooleanArray serverStatuses = new SparseBooleanArray(10);
+    private final HttpService<InfoResponse> httpService = new HttpService<InfoResponse>(InfoResponse.class);
 
     private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
@@ -139,16 +139,10 @@ public class ServerListFragment extends SherlockListFragment implements LoaderCa
 
             @Override
             protected Boolean doInBackground(final Void... params) {
-                final HttpService<BaseResponse> httpService = new HttpService<BaseResponse>(BaseResponse.class);
-                try {
-                    final HttpResponse response = httpService.callForResponse(null, address + "/info", password);
-                    if (response.getStatusLine().getStatusCode() == 200) {
-                        return true;
-                    }
-                } catch (final Exception e) {
-                    Log.e(TAG, "An error occurred checking server status: " + e.getMessage());
+                final ServiceResponse<InfoResponse> response = httpService.call(null, address + "/info", password);
+                if (response.error == null) {
+                    return true;
                 }
-                Log.d(TAG, "Could not contact " + address);
                 return false;
             }
 

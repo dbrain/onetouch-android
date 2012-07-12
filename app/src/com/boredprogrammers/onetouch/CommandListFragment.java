@@ -1,13 +1,10 @@
 package com.boredprogrammers.onetouch;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
@@ -16,19 +13,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.boredprogrammers.onetouch.data.loader.CommandLoader;
 import com.boredprogrammers.onetouch.data.model.Command;
 import com.boredprogrammers.onetouch.data.model.Server;
-import com.boredprogrammers.onetouch.data.request.HttpService;
-import com.boredprogrammers.onetouch.data.response.BaseResponse;
 import com.boredprogrammers.onetouch.data.response.CommandResponse;
 import com.boredprogrammers.onetouch.data.response.ServiceResponse;
+import com.boredprogrammers.onetouch.dialog.RunCommandDialog;
 
 public class CommandListFragment extends SherlockListFragment implements LoaderCallbacks<ServiceResponse<CommandResponse>> {
     private static final int DEFAULT_LOADER = -1;
+    private static final String RUN_COMMAND_TAG = "run_command";
     private CommandAdapter adapter;
     private Server server;
 
@@ -118,38 +114,9 @@ public class CommandListFragment extends SherlockListFragment implements LoaderC
     @Override
     public void onListItemClick(final ListView list, final View view, final int position, final long id) {
         final Command command = adapter.getItem(position);
-        new AsyncTask<Void, Void, String>() {
-
-            @Override
-            protected String doInBackground(final Void... params) {
-                final HttpService<BaseResponse> service = new HttpService<BaseResponse>(BaseResponse.class);
-                HttpResponse response = null;
-                try {
-                    response = service.callForResponse(null, server.address + "/commands/" + command.shortName, server.password);
-                    final int statusCode = response.getStatusLine().getStatusCode();
-                    if (statusCode != 200) {
-                        return "Command " + command.shortName + " failed with status: " + statusCode;
-                    }
-                } catch (final Exception e) {
-                    return "Command " + command.shortName + " failed with error: " + e.getMessage();
-                } finally {
-                    if (response != null) {
-                        try {
-                            response.getEntity().consumeContent();
-                        } catch (final IOException e) {
-                            return "Failed to close command " + command.shortName + ": " + e.getMessage();
-                        }
-                    }
-                }
-                return "Command " + command.shortName + " ran successfully.";
-            }
-
-            @Override
-            protected void onPostExecute(final String result) {
-                Toast.makeText(getSherlockActivity(), result, Toast.LENGTH_SHORT).show();
-            };
-
-        }.execute();
+        final FragmentManager fragMan = getSherlockActivity().getSupportFragmentManager();
+        final RunCommandDialog addServerDlg = new RunCommandDialog(server, command);
+        addServerDlg.show(fragMan, RUN_COMMAND_TAG);
     }
 
     public void setServer(final Server server) {

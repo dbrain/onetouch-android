@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="16" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -21,16 +21,13 @@
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ServerCommandActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="vnd.android.cursor.item/vnd.boredprogrammers.server" />
             </intent-filter>
         </activity>

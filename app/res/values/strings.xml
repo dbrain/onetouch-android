@@ -7,14 +7,22 @@
     <string name="server_password_label">Password</string>
     <string name="server_description_label">Description</string>
     <string name="add_server_title">Add Server &#8230;</string>
+    <string name="run_command_title">Run Command</string>
     <string name="server_added">Server added.</string>
     <string name="servers_deleted">%d servers deleted.</string>
     <string name="save_button">Save</string>
+    <string name="run_button">Run</string>
+    <string name="done_button">Done</string>
     <string name="cancel_button">Cancel</string>
     <string name="delete_icon_title">Delete servers.</string>
     <string-array name="server_types">
         <item>http://</item>
         <item>https://</item>
     </string-array>
+    <string name="command_name_label">Name:</string>
+    <string name="command_description_label">Description:</string>
+    <string name="command_exec_label">Commands:</string>
+    <string name="command_output_label">Output:</string>
+    <string name="example_field">Example text.</string>
 
 </resources>
